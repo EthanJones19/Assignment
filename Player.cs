@@ -5,43 +5,44 @@ using System.Text;
 
 namespace HelloWorld
 {
-    class Player : Item
+    class Player
     {
-        private float _health;
-        private string _name;
-        private float _damage;
+        private float _playerHealth;
+        private string _playerName;
+        private float _playerDamage;
         private Item[] _inventory;
 
         public Player()
         {
-            _health = 100;
-            _name = "Some Hobo";
-            _damage = 20;
+            _playerHealth = 100;
+            _playerName = "Some Hobo";
+            _playerDamage = 20;
             _inventory = new Item[3];
+
         }
 
         public Player(float healthVal, string nameVal, float damageVal)
         {
-            _health = healthVal;
-            _name = nameVal;
-            _damage = damageVal;
+            _playerHealth = healthVal;
+            _playerName = nameVal;
+            _playerDamage = damageVal;
         }
 
         public void PrintStats()
         {
-            Console.WriteLine("Name: " + _name);
-            Console.WriteLine("Health: " + _health);
-            Console.WriteLine("Damage: " + _damage);
+            Console.WriteLine("Name: " + _playerName);
+            Console.WriteLine("Health: " + _playerHealth);
+            Console.WriteLine("Damage: " + _playerDamage);
         }
 
         public string GetName()
         {
-            return _name;
+            return _playerName;
         }
 
         public bool Alive()
         {
-            return _health > 0;
+            return _playerHealth > 0;
         }
 
 

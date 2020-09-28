@@ -18,13 +18,6 @@ namespace HelloWorld
         private Item _knife;
         private Item _brokenGlass;
         private Item _goldenGun;
-
-        public Item()
-        {
-            _stick.name = "Stick";
-            
-        }
-
-
+        private Item _errorCode1337;
     }
 }
