@@ -6,8 +6,8 @@ namespace HelloWorld
 {
     class Chupacabra : Enemy
     {
-        public Chupacabra(float healthVal, string nameVal, float damageVal, float speedVal) :
-            base(healthVal,nameVal,damageVal,speedVal)
+        public Chupacabra(float healthVal, string nameVal, float damageVal, float speedVal, float moneyVal) :
+            base(healthVal,nameVal,damageVal,speedVal,moneyVal)
         {
 
         }

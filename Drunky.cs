@@ -9,8 +9,8 @@ namespace HelloWorld
     {
 
 
-        public Drunky(string nameVal,float healthVal, float damageVal, float speedVal) :
-            base(healthVal,nameVal,damageVal,speedVal)
+        public Drunky(string nameVal,float healthVal, float damageVal, float speedVal, float moneyVal) :
+            base(healthVal,nameVal,damageVal,speedVal,moneyVal)
         {
 
         }

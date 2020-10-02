@@ -12,13 +12,12 @@ namespace HelloWorld
 
         public Hobo()
         {
-            _stick.name = "Stick";
-            _stick.statIncrease = 2;
+
         }
 
 
         public Hobo(string nameVal, float healthVal, float damageVal, float speedVal, int moneyVal, int inventorySize) 
-            : base(healthVal,nameVal,damageVal, speedVal, moneyVal, inventorySize)
+            : base(nameVal,healthVal,damageVal, speedVal, moneyVal, inventorySize)
         {
             
             _stick.name = "Stick";

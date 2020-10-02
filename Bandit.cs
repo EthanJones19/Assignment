@@ -7,8 +7,8 @@ namespace HelloWorld
     class Bandit : Enemy
     {
 
-        public Bandit(float healthVal, string nameVal, float damageVal, float speedVal) :
-            base(healthVal, nameVal, damageVal, speedVal)
+        public Bandit(float healthVal, string nameVal, float damageVal, float speedVal, float moneyVal) :
+            base(healthVal, nameVal, damageVal, speedVal,moneyVal)
         {
 
         }

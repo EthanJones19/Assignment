@@ -10,6 +10,7 @@ namespace HelloWorld
         protected string _enemyName;
         protected float _enemyDamage;
         protected float _enemySpeed;
+        protected float _enemyMoney;
 
         public Enemy()
         {
@@ -17,14 +18,16 @@ namespace HelloWorld
             _enemyName = "";
             _enemyDamage = 100;
             _enemySpeed = 100;
+            _enemyMoney = 0;
         }
 
-        public Enemy(float healthVal, string nameVal, float damageVal, float speedVal)
+        public Enemy(float healthVal, string nameVal, float damageVal, float speedVal, float moneyVal)
         {
             _enemyHealth = healthVal;
             _enemyName = nameVal;
             _enemyDamage = damageVal;
             _enemySpeed = speedVal;
+            _enemyMoney = moneyVal;
         }
 
         public void EnemyStats()
@@ -58,6 +61,23 @@ namespace HelloWorld
         public bool EnemySpeed(float speedVal)
         {
             return _enemySpeed >= speedVal;
+        }
+
+        public virtual float GetMoney(Player player)
+        {
+            float loseMoney = player.AddMoney(_enemyMoney);
+            return loseMoney;
+        }
+
+
+        public virtual float LoseMoney(float moneyVal)
+        {
+            _enemyMoney -= moneyVal;
+            if (_enemyMoney > 0)
+            {
+                _enemyMoney = 0;
+            }
+            return moneyVal;
         }
 
 

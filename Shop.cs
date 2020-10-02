@@ -9,9 +9,9 @@ namespace HelloWorld
         private Item[] _inventory = new Item[4];
         private int _playerMoney;
         protected Item _item1 = new Item("Golden Gun", 100, 100);
-        protected Item _item2 = new Item("Golden Gun", 100, 100);
-        protected Item _item3 = new Item("Golden Gun", 100, 100);
-        protected Item _item4 = new Item("Golden Gun", 100, 100);
+        protected Item _item2 = new Item("SteelChair", 80, 80);
+        protected Item _item3 = new Item("Gun", 30, 50);
+        protected Item _item4 = new Item("Rifle", 50, 60);
 
         public Shop()
         {

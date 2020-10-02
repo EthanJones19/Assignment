@@ -12,11 +12,11 @@ namespace HelloWorld
         protected float _playerHealth;
         protected string _playerName;
         protected float _playerDamage;
-        protected int _playerMoney;
+        protected float _playerMoney;
         protected float _playerSpeed;
         protected Item[] _inventory = new Item[4];
-        protected Item _equipedWeapon = new Item("Golden Gun", 100, 100);
-        protected Item _item1 = new Item("Golden Gun", 10, 100);
+        protected Item _equipedWeapon = new Item("Stick", 10, 0);
+        protected Item _item1 = new Item("Stick", 10, 0);
         protected Item _item2 = new Item("none", 0, 0);
         protected Item _item3 = new Item("none", 0, 0);
         protected Item _item4 = new Item("none", 0, 0);
@@ -31,7 +31,7 @@ namespace HelloWorld
             _playerName = "Some Hobo";
             _playerDamage = 20;
             _playerSpeed = 50;
-            _playerMoney = 100;
+            _playerMoney = 5;
             _inventory[0] = _item1;
             _inventory[1] = _item2;
             _inventory[2] = _item3;
@@ -41,7 +41,7 @@ namespace HelloWorld
         }
 
 
-        public Player(float healthVal, string nameVal, float damageVal, float speedVal, int moneyVal, int inventorySize) 
+        public Player(string nameVal, float healthVal, float damageVal, float speedVal, float moneyVal, int inventorySize) 
         {
             _playerHealth = healthVal;
             _playerName = nameVal;
@@ -83,7 +83,7 @@ namespace HelloWorld
 
         }
 
-        public int ReturnMoney()
+        public float ReturnMoney()
         {
             return _playerMoney;
         }
@@ -108,6 +108,21 @@ namespace HelloWorld
 
         }
 
+        public virtual float AddPrizeMoney(Enemy enemy)
+        {
+            float moneyGain = enemy.LoseMoney(_playerMoney);
+            return moneyGain;
+        }
+
+        public virtual float AddMoney(float moneyVal)
+        {
+            _playerMoney += moneyVal;
+            if (_playerMoney < 0)
+            {
+                _playerMoney = 0;
+            }
+            return moneyVal;
+        }
 
 
         public Item[] EnterInventory()
