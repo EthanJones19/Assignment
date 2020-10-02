@@ -9,8 +9,8 @@ namespace HelloWorld
     {
 
 
-        public Drunky(string nameVal,float healthVal, float damageVal, float speedVal, float moneyVal) :
-            base(healthVal,nameVal,damageVal,speedVal,moneyVal)
+        public Drunky(string nameVal,float healthVal, float damageVal, float speedVal) :
+            base(healthVal,nameVal,damageVal,speedVal)
         {
 
         }
@@ -20,5 +20,8 @@ namespace HelloWorld
             float maxDamage = _enemyDamage;
             return player.TakenDamage(maxDamage);
         }
+
+       
+
     }
 }

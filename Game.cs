@@ -12,7 +12,6 @@ namespace HelloWorld
     {
  
         
-        private Shop _shop = new Shop();
         private Player _player;
         private bool _gameOver;
         private Enemy[] _enemy;
@@ -31,12 +30,14 @@ namespace HelloWorld
             End();
         }
 
+        
+
         public Player CreateCharacter()
         {
             Console.WriteLine("Name?");
             string name = Console.ReadLine();
-            Player player = new Player(name, 100, 20, 50, 10, 4);
-            return player;
+            Player _player = new Player(name, 100, 20, 50, 4);
+            return _player;
         }
 
         public void ClearScreen()
@@ -50,27 +51,64 @@ namespace HelloWorld
         public void SwitchWeapons(Player player)
         {
             Item[] inventory = player.InventoryView();
+
+            char input = ' ';
+            //Print all items to screen
+            for (int i = 0; i < inventory.Length; i++)
+            {
+                Console.WriteLine((i + 1) + ". " + inventory[i].name + "\n Damage: " + inventory[i].statIncrease);
+            }
+            Console.Write("> ");
+            input = Console.ReadKey().KeyChar;
+
+            switch (input)
+            {
+                case '1':
+                    {
+                        player.EquipItem(0);
+                        Console.WriteLine("You equipped " + inventory[0].name);
+                        Console.WriteLine("Base damage increased by " + inventory[0].statIncrease);
+                        break;
+                    }
+                case '2':
+                    {
+                        player.EquipItem(1);
+                        Console.WriteLine("You equipped " + inventory[1].name);
+                        Console.WriteLine("Base damage increased by " + inventory[1].statIncrease);
+                        break;
+                    }
+                case '3':
+                    {
+                        player.EquipItem(2);
+                        Console.WriteLine("You equipped " + inventory[2].name);
+                        Console.WriteLine("Base damage increased by " + inventory[2].statIncrease);
+                        break;
+                    }
+                
+            }
         }
 
 
-        
-        public void GetInput(out char input, string option1, string option2, string query)
+
+        public void GetInput(out char input, string option1, string option2,string option3, string query)
         {
             Console.WriteLine(query);
-            Console.WriteLine("1." + option1);
-            Console.WriteLine("2." + option2);
+            Console.WriteLine("1[" + option1);
+            Console.WriteLine("2[" + option2);
+            Console.WriteLine("3[" + option3);
             Console.Write("> ");
 
             input = ' ';
-            while (input != '1' && input != '2')
+            while (input != '1' && input != '2' && input != '3')
             {
                 input = Console.ReadKey().KeyChar;
-                if (input != '1' && input != '2')
+                if (input != '1' && input != '2' && input != '3')
                 {
-                    Console.WriteLine("Invalid Input");
+                    Console.WriteLine("Wrong Input");
                 }
             }
         }
+
 
 
 
@@ -98,84 +136,153 @@ namespace HelloWorld
             Console.WriteLine("You decide to let the rage explode and fight the drunk");
             ClearScreen();
 
-            while (_player.PlayerAlive() && _enemy[0].EnemyAlive())
+            //First fight
+            while(_player.PlayerAlive() && _enemy[0].EnemyAlive())
             {
                 _player.PlayerStats();
                 Console.WriteLine("-----------------------------------------");
                 _enemy[0].EnemyStats();
                 Console.WriteLine("-----------------------------------------");
 
+                char input;
+                GetInput(out input, " Attack", "Switch Weapons", "Save Game", " ");
 
-                Console.WriteLine("Player dealt " + _player.Attack(enemy));
-                Console.WriteLine("Enemy dealt " + _enemy[0].Attack(_player));
-                Console.WriteLine("-----------------------------------------");
-
-                if (_player.PlayerAlive())
+                if (input == '1')
                 {
-                    Console.WriteLine("Player gain: " + _player.AddPrizeMoney(enemy));
-
+                    Console.WriteLine("Player dealt " + _player.Attack(enemy));
+                    Console.WriteLine("Enemy dealt " + _enemy[0].Attack(_player));
+                    Console.WriteLine("-----------------------------------------");
+                    Console.Clear();
+                }
+                else if (input == '2')
+                {
+                    SwitchWeapons(_player);
                 }
                 else
                 {
-                    _gameOver = true;
+                    Save();
                 }
-                ClearScreen();
 
             }
-        }
-
-        private void ShopMenu()
-        {
-            Console.WriteLine("Welcome stranger! What can I getcha?");
-            ShowInventory(_shop.GetInventory());
-
-            char input = Console.ReadKey().KeyChar;
-
-            int itemIndex = -1;
-            switch (input)
+            if (_player.PlayerDead())
             {
-                case '1':
-                    {
-                        itemIndex = 0;
-                        break;
-                    }
-                case '2':
-                    {
-                        itemIndex = 1;
-                        break;
-                    }
-                case '3':
-                    {
-                        itemIndex = 2;
-                        break;
-                    }
-                case '4':
-                    {
-                        itemIndex = 3;
-                        break;
-                    }
-
-                default:
-                    {
-                        return;
-                    }
-
-
+                _gameOver = true;
+                Console.WriteLine("Game Over");
             }
 
-            if (_player.ReturnMoney() < _shop.GetInventory()[itemIndex].cost)
+            //Second Fight
+            while (_player.PlayerAlive() && _enemy[1].EnemyAlive())
             {
-                Console.WriteLine("You need more money to buy this item, chief.");
-                return;
+                _player.PlayerStats();
+                Console.WriteLine("-----------------------------------------");
+                _enemy[1].EnemyStats();
+                Console.WriteLine("-----------------------------------------");
+
+                char input;
+                GetInput(out input, " Attack", "Switch Weapons", "Save Game", " ");
+
+                if (input == '1')
+                {
+                    Console.WriteLine("Player dealt " + _player.Attack(enemy));
+                    Console.WriteLine("Enemy dealt " + _enemy[1].Attack(_player));
+                    Console.WriteLine("-----------------------------------------");
+                    Console.Clear();
+                }
+                else if (input == '2')
+                {
+                    SwitchWeapons(_player);
+                }
+                else
+                {
+                    Save();
+                }
+
             }
-
-            Console.WriteLine("Replace slot.");
-            ShowInventory(_player.EnterInventory());
-            input = Console.ReadKey().KeyChar;
-
-
             
+            if (_player.PlayerDead())
+            {
+                _gameOver = true;
+                Console.WriteLine("Game Over");
+            }
+
+            //Third Fight
+            while (_player.PlayerAlive() && _enemy[2].EnemyAlive())
+            {
+                _player.PlayerStats();
+                Console.WriteLine("-----------------------------------------");
+                _enemy[2].EnemyStats();
+                Console.WriteLine("-----------------------------------------");
+
+                char input;
+                GetInput(out input, " Attack", "Switch Weapons", "Save Game", " ");
+
+                if (input == '1')
+                {
+                    Console.WriteLine("Player dealt " + _player.Attack(enemy));
+                    Console.WriteLine("Enemy dealt " + _enemy[2].Attack(_player));
+                    Console.WriteLine("-----------------------------------------");
+                    Console.Clear();
+                }
+                else if (input == '2')
+                {
+                    SwitchWeapons(_player);
+                }
+                else
+                {
+                    Save();
+                }
+
+            }
+           
+            if (_player.PlayerDead())
+            {
+                _gameOver = true;
+                Console.WriteLine("Game Over");
+            }
+
+            //Fourth Fight
+            while (_player.PlayerAlive() && _enemy[3].EnemyAlive())
+            {
+                _player.PlayerStats();
+                Console.WriteLine("-----------------------------------------");
+                _enemy[3].EnemyStats();
+                Console.WriteLine("-----------------------------------------");
+
+                char input;
+                GetInput(out input, " Attack", "Switch Weapons", "Save Game", " ");
+
+                if (input == '1')
+                {
+                    Console.WriteLine("Player dealt " + _player.Attack(enemy));
+                    Console.WriteLine("Enemy dealt " + _enemy[3].Attack(_player));
+                    Console.WriteLine("-----------------------------------------");
+                    Console.Clear();
+                }
+                else if (input == '2')
+                {
+                    SwitchWeapons(_player);
+                }
+                else
+                {
+                    Save();
+                }
+
+            }
+            if (_player.PlayerDead())
+            {
+                _gameOver = true;
+                Console.WriteLine("Game Over");
+            }
+
+            _gameOver = true;
+
         }
+
+        
+
+        
+
+
 
         public void Save()
         {
@@ -197,43 +304,60 @@ namespace HelloWorld
             reader.Close();
         }
 
-        
-
-
-
-        public void ShowInventory(Item[] inventory)
+        public void GetInput(out char input, string option1, string option2, string query)
         {
-            for (int i = 0; i < inventory.Length; i++)
+            Console.WriteLine(query);
+            Console.WriteLine("1." + option1);
+            Console.WriteLine("2." + option2);
+            Console.Write("> ");
+
+            input = ' ';
+            //loop until valid input is received
+            while (input != '1' && input != '2')
             {
-                Console.WriteLine((i + 1) + "- " + inventory[i].name + inventory[i].cost);
+                input = Console.ReadKey().KeyChar;
+                if (input != '1' && input != '2')
+                {
+                    Console.WriteLine("Invalid Input");
+                }
             }
+
+
+        }
+        public void OpenMainMenu()
+        {
+            char input;
+            GetInput(out input, "Create new character", "Load Character", "What do you wanna do?");
+            if (input == '2')
+            {
+                _player = new Player();
+                Load();
+                return;
+            }
+            _player = CreateCharacter();
         }
 
 
-        
-        
-        
-        
-        
-        
-        
-        
+
+
         public void Start()
         {
             _gameOver = false;
+            _enemy = new Enemy[4];
             _player = new Player();
-            _enemy = new Enemy[1];
-            _enemy[0] = new Drunky("Drunky", 40, 50, 10, 40);
+            _enemy[0] = new Drunky("Drunky", 40, 10, 10);
+            _enemy[1] = new Bandit("Bandit", 40, 10, 10);
+            _enemy[2] = new Chupacabra("Chupacabra", 40, 10, 10);
+            _enemy[3] = new BanditLeader("Leader", 40, 0, 70);
         }
 
         public void Update()
         {
-            CreateCharacter();
+            OpenMainMenu();
             foreach(Enemy enemy in _enemy)
             {
                 TheOldTown(enemy);
             }
-            ShopMenu();
         }
 
         public void End()

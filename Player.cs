@@ -12,14 +12,14 @@ namespace HelloWorld
         protected float _playerHealth;
         protected string _playerName;
         protected float _playerDamage;
-        protected float _playerMoney;
         protected float _playerSpeed;
+        protected float _money;
         protected Item[] _inventory = new Item[4];
-        protected Item _equipedWeapon = new Item("Stick", 10, 0);
-        protected Item _item1 = new Item("Stick", 10, 0);
-        protected Item _item2 = new Item("none", 0, 0);
-        protected Item _item3 = new Item("none", 0, 0);
-        protected Item _item4 = new Item("none", 0, 0);
+        protected Item _equipedWeapon = new Item("stick", 10);
+        protected Item _item1 = new Item("Gun", 30);
+        protected Item _item2 = new Item("Rifle", 50);
+        protected Item _item3 = new Item("Golden Gun", 70);
+        protected Item _item4 = new Item("Steel Chair", 90);
 
 
 
@@ -31,23 +31,20 @@ namespace HelloWorld
             _playerName = "Some Hobo";
             _playerDamage = 20;
             _playerSpeed = 50;
-            _playerMoney = 5;
             _inventory[0] = _item1;
             _inventory[1] = _item2;
             _inventory[2] = _item3;
             _inventory[3] = _item4;
 
-
         }
 
 
-        public Player(string nameVal, float healthVal, float damageVal, float speedVal, float moneyVal, int inventorySize) 
+        public Player(string nameVal, float healthVal, float damageVal, float speedVal, int inventorySize)
         {
             _playerHealth = healthVal;
             _playerName = nameVal;
             _playerDamage = damageVal;
             _playerSpeed = speedVal;
-            _playerMoney = moneyVal;
             _inventory = new Item[inventorySize];
         }
 
@@ -56,37 +53,18 @@ namespace HelloWorld
             Console.WriteLine("Name: " + _playerName);
             Console.WriteLine("Life: " + _playerHealth);
             Console.WriteLine("Damage: " + _playerDamage);
-            Console.WriteLine("Money: " + _playerMoney);
             Console.WriteLine("Reaction Speed: " + _playerSpeed);
         }
 
-        public void AddInventory(Item item, int index)
-        {
-            _inventory[index] = item;
-        }
+        
 
         public Item[] InventoryView()
         {
             return _inventory;
         }
 
-        public bool BuyItems(Item item, int inventoryIndex)
-        {
-            if (_playerMoney >= item.cost)
-            {
-                _playerMoney -= item.cost;
-                _inventory[inventoryIndex] = item;
-                return true;
+        
 
-            }
-            return false;
-
-        }
-
-        public float ReturnMoney()
-        {
-            return _playerMoney;
-        }
         
         public bool Contain(int itemIndex)
         {
@@ -101,29 +79,15 @@ namespace HelloWorld
         {
             if (Contain(itemIndex))
             {
-                    _playerSpeed -= _equipedWeapon.statIncrease;
-                    _equipedWeapon = _inventory[itemIndex];
-                    _playerSpeed += _equipedWeapon.statIncrease;
+                _playerSpeed -= _equipedWeapon.statIncrease;
+                _equipedWeapon = _inventory[itemIndex];
+                _playerSpeed += _equipedWeapon.statIncrease;
             }
 
         }
 
-        public virtual float AddPrizeMoney(Enemy enemy)
-        {
-            float moneyGain = enemy.LoseMoney(_playerMoney);
-            return moneyGain;
-        }
 
-        public virtual float AddMoney(float moneyVal)
-        {
-            _playerMoney += moneyVal;
-            if (_playerMoney < 0)
-            {
-                _playerMoney = 0;
-            }
-            return moneyVal;
-        }
-
+        
 
         public Item[] EnterInventory()
         {
@@ -138,6 +102,11 @@ namespace HelloWorld
         public bool PlayerAlive()
         {
             return _playerHealth > 0;
+        }
+
+        public bool PlayerDead()
+        {
+            return _playerHealth < 0;
         }
 
         public virtual float Attack(Enemy enemy)
