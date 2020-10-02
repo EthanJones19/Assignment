@@ -4,7 +4,23 @@ using System.Text;
 
 namespace HelloWorld
 {
-    class BanditLeader
+    class BanditLeader : Enemy
     {
+
+        public BanditLeader(float healthVal, string nameVal, float damageVal, float speedVal) :
+            base(healthVal, nameVal, damageVal, speedVal)
+        {
+
+        }
+
+
+        public override float Attack(Player player)
+        {
+            float maxDamage = _enemyDamage;
+            return player.TakenDamage(maxDamage);
+        }
+
     }
+
+    
 }

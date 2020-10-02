@@ -1,53 +1,36 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Reflection.PortableExecutable;
 using System.Text;
 
 namespace HelloWorld
 {
-    class Hobo
+    class Hobo : Player
     {
-        private Item _dustyClothes;
         private Item _stick;
-        private Item[] _inventory;
 
 
         public Hobo()
         {
-            _inventory = new Item[3];
             _stick.name = "Stick";
-            _stick.statIncrease = 0;
-            _dustyClothes.name = "Dusty Clothes";
-            _dustyClothes.statIncrease = 0;
+            _stick.statIncrease = 2;
         }
-        
-        
-        public Hobo(string nameVal,float healthVal, float damageVal, int inventorySize)
+
+
+        public Hobo(string nameVal, float healthVal, float damageVal, float speedVal, int moneyVal, int inventorySize) 
+            : base(healthVal,nameVal,damageVal, speedVal, moneyVal, inventorySize)
         {
-            _inventory = new Item[3];
+            
             _stick.name = "Stick";
-            _stick.statIncrease = 0;
-            _dustyClothes.name = "Dusty Clothes";
-            _dustyClothes.statIncrease = 0;
+            _stick.statIncrease = 2;
         }
 
-        public void AddInventory(Item item, int index)
+        public override float Attack(Enemy enemy)
         {
-            _inventory[index] = item;
+            float maxDamage = _playerDamage + _equipedWeapon.statIncrease;
+            return enemy.TakenDamage(maxDamage);
         }
 
-        public Item[] InventoryView()
-        {
-            return _inventory;
-        }
-
-        public bool Contain(int itemIndex)
-        {
-            if (itemIndex > 0 && itemIndex < _inventory.Length)
-            {
-                return true;
-            }
-            return false;
-        }
 
 
 

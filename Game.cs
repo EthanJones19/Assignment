@@ -5,88 +5,190 @@ using System.IO;
 
 namespace HelloWorld
 {
-    struct Item
-    {
-        public string name;
-        public int statIncrease;
-    }
+   
     
     
     class Game
     {
-        private Item _stick;
-        private Item _dustyClothes;
-        private Item _club;
-        private Item _jar;
-        private Item _brokenbeerBottle;
-        private Item _oldGun;
-        private Item _rifle;
-        private Item _chair;
-        private Item _thing;
-        private Item _knife;
-        private Item _brokenGlass;
+ 
         private Item _goldenGun;
-        private Item _errorCode1337;
+        private Item _rifle;
+        private Item _gun;
+        private Item _steelChair;
+        private Shop _shop = new Shop();
+        private Player _player;
+        private bool _gameOver;
+        private Enemy[] _enemy;
 
 
 
-
-
-
-        //public virtual void Save(StreamerWriter writer)
-        //{
-        //StreamWriter writer = new StreamWriter(SaveData.txt);
-        //_player.Save(writer);
-        //writer.Close();
-        //}
-
-        //public void load()
-        //{
-            //StreamReader reader = new StreamReader("SaveData.txt");
-            //Player.Load(reader);
-            //reader.Close();
-        //}
-
-        //public virtual bool Load(StreamReader reader)
-        //{
-            //Create variables to loaded data
-            //string name = reader.ReadLine();
-            //float damage = 0;
-            //float health = 0;
-            
-            //Checks to see if loading was successful
-            //if (float.TryParse(reader.ReadLine(), out health) == false);
-            //{
-                //return false;
-            //}
-            //if (float.TryParse(reader.ReadLine(), out damage) == false);
-            //{
-
-            //}
-            //If successful, set update the member variables and return true.
-            //return true;
-            //_name = name;
-            //_damage = damage;
-            //_health = health;
-            
-        //}
-        
         public void Run()
         {
-           
+            Start();
+
+            while (_gameOver == false)
+            {
+                Update();
+            }
+
+            End();
         }
+
+        public Player CreateCharacter()
+        {
+            Console.WriteLine("Name?");
+            string name = Console.ReadLine();
+            Player player = new Player(100, name, 20, 50, 0, 4);
+            return player;
+        }
+
+        public void ClearScreen()
+        {
+            Console.WriteLine("Press any key to continue");
+            Console.Write("> ");
+            Console.ReadKey();
+            Console.Clear();
+        }
+
+        public void SwitchWeapons(Player player)
+        {
+            Item[] inventory = player.EnterInventory();
+
+            char input = ' ';
+
+            for (int i = 0; i < inventory.Length; i++)
+            {
+                Console.WriteLine((i + 1) + ". " + inventory[i].name );
+            }
+        }
+
+        public void TheOldTown(Enemy enemy)
+        {
+
+            Console.WriteLine("Player dealt " + _player.Attack(enemy));
+            Console.ReadKey();
+
+        }
+
+        private void ShopMenu()
+        {
+            Console.WriteLine("Welcome stranger! What can I getcha?");
+            ShowInventory(_shop.GetInventory());
+
+            char input = Console.ReadKey().KeyChar;
+
+            int itemIndex = -1;
+            switch (input)
+            {
+                case '1':
+                    {
+                        itemIndex = 0;
+                        break;
+                    }
+                case '2':
+                    {
+                        itemIndex = 1;
+                        break;
+                    }
+                case '3':
+                    {
+                        itemIndex = 2;
+                        break;
+                    }
+                case '4':
+                    {
+                        itemIndex = 3;
+                        break;
+                    }
+
+                default:
+                    {
+                        return;
+                    }
+
+
+            }
+
+            if (_player.ReturnMoney() < _shop.GetInventory()[itemIndex].cost)
+            {
+                Console.WriteLine("You need more money to buy this item, chief.");
+                return;
+            }
+
+            Console.WriteLine("Replace slot.");
+            ShowInventory(_player.EnterInventory());
+            input = Console.ReadKey().KeyChar;
+
+
+            
+        }
+
+        public void Save()
+        {
+            //Create a new stream writer.
+            StreamWriter writer = new StreamWriter("SaveData.txt");
+            //Call save for both instances for player.
+            _player.Save(writer);
+            //Close writer.
+            writer.Close();
+        }
+
+        public void Load()
+        {
+            //Create a new stream reader.
+            StreamReader reader = new StreamReader("SaveData.txt");
+            //Call load for each instance of player to load data.
+            _player.Load(reader);
+            //Close reader
+            reader.Close();
+        }
+
+        
+
+
+
+        public void ShowInventory(Item[] inventory)
+        {
+            for (int i = 0; i < inventory.Length; i++)
+            {
+                Console.WriteLine((i + 1) + "- " + inventory[i].name + inventory[i].cost);
+            }
+        }
+
+
+        
+        
         public void InitializeItems()
         {
+            _goldenGun.name = "GoldenGun";
+            _goldenGun.cost = 100;
+            _goldenGun.statIncrease = 50;
+            _gun.name = "Gun";
+            _gun.cost = 20;
+            _gun.statIncrease = 25;
+            _rifle.name = "Rifle";
+            _rifle.cost = 30;
+            _rifle.statIncrease = 60;
+            _steelChair.name = "SteelChair";
+            _steelChair.cost = 70;
 
         }
         public void Start()
         {
-
+            _gameOver = false;
+            _player = new Player();
+            _enemy = new Enemy[1];
+            _enemy[0] = new Drunky("Drunky", 100, 100, 100);
         }
 
         public void Update()
         {
-
+            foreach(Enemy enemy in _enemy)
+            {
+                TheOldTown(enemy);
+                
+            }
+            ShopMenu();
         }
 
         public void End()

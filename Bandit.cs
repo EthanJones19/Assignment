@@ -1,19 +1,19 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Runtime.CompilerServices;
 using System.Text;
 
 namespace HelloWorld
 {
-    class Drunky : Enemy
+    class Bandit : Enemy
     {
 
-
-        public Drunky(string nameVal,float healthVal, float damageVal, float speedVal) :
-            base(healthVal,nameVal,damageVal,speedVal)
+        public Bandit(float healthVal, string nameVal, float damageVal, float speedVal) :
+            base(healthVal, nameVal, damageVal, speedVal)
         {
 
         }
+
+
 
         public override float Attack(Player player)
         {
@@ -21,4 +21,6 @@ namespace HelloWorld
             return player.TakenDamage(maxDamage);
         }
     }
+
+   
 }
