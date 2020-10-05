@@ -55,12 +55,12 @@ namespace HelloWorld
             return damageTaken;
         }
 
-        public bool EnemySpeed(float speedVal)
+        public bool EnemySpeed()
         {
-            return _enemySpeed >= speedVal;
+            return _enemySpeed > 0;
         }
 
-        
+
 
 
 

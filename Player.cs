@@ -12,14 +12,14 @@ namespace HelloWorld
         protected float _playerHealth;
         protected string _playerName;
         protected float _playerDamage;
+        protected int _playerMoney;
         protected float _playerSpeed;
-        protected float _money;
         protected Item[] _inventory = new Item[4];
-        protected Item _equipedWeapon = new Item("stick", 10);
-        protected Item _item1 = new Item("Gun", 30);
-        protected Item _item2 = new Item("Rifle", 50);
-        protected Item _item3 = new Item("Golden Gun", 70);
-        protected Item _item4 = new Item("Steel Chair", 90);
+        protected Item _equipedWeapon = new Item("none ", 0, 0);
+        protected Item _item1 = new Item("cool ", 40, 0);
+        protected Item _item2 = new Item("pop ", 0, 0);
+        protected Item _item3 = new Item("apple ", 0, 0);
+        protected Item _item4 = new Item("taco ", 0, 0);
 
 
 
@@ -31,21 +31,23 @@ namespace HelloWorld
             _playerName = "Some Hobo";
             _playerDamage = 20;
             _playerSpeed = 50;
-            _inventory[0] = _item1;
-            _inventory[1] = _item2;
-            _inventory[2] = _item3;
-            _inventory[3] = _item4;
+            _playerMoney = 5;
 
         }
 
 
-        public Player(string nameVal, float healthVal, float damageVal, float speedVal, int inventorySize)
+        public Player(string nameVal, float healthVal, float damageVal, float speedVal, int moneyVal, int inventorySize)
         {
             _playerHealth = healthVal;
             _playerName = nameVal;
             _playerDamage = damageVal;
             _playerSpeed = speedVal;
+            _playerMoney = moneyVal;
             _inventory = new Item[inventorySize];
+            _inventory[0] = _item1;
+            _inventory[1] = _item2;
+            _inventory[2] = _item3;
+            _inventory[3] = _item4;
         }
 
         public void PlayerStats()
@@ -54,18 +56,19 @@ namespace HelloWorld
             Console.WriteLine("Life: " + _playerHealth);
             Console.WriteLine("Damage: " + _playerDamage);
             Console.WriteLine("Reaction Speed: " + _playerSpeed);
+            Console.WriteLine("Coins: " + _playerMoney);
         }
 
-        
+
 
         public Item[] InventoryView()
         {
             return _inventory;
         }
 
-        
 
-        
+
+
         public bool Contain(int itemIndex)
         {
             if (itemIndex > 0 && itemIndex < _inventory.Length)
@@ -86,8 +89,6 @@ namespace HelloWorld
 
         }
 
-
-        
 
         public Item[] EnterInventory()
         {
@@ -125,14 +126,16 @@ namespace HelloWorld
             return damageVal;
         }
 
-        public virtual bool FasterSpeed(float speedVal)
+        public bool FasterSpeed()
         {
-            return _playerSpeed >= speedVal;
+            return _playerSpeed > 0;
         }
+
+      
+
 
         public virtual void Save(StreamWriter writer)
         {
-            //Save the characters stats
             writer.WriteLine(_playerName);
             writer.WriteLine(_playerHealth);
             writer.WriteLine(_playerDamage);
@@ -141,12 +144,11 @@ namespace HelloWorld
 
         public virtual bool Load(StreamReader reader)
         {
-            //Create variables to store loaded data.
             string name = reader.ReadLine();
             float damage = 0;
             float health = 0;
             float speed = 0;
-            //Checks to see if loading was successful.
+            int money = 0;
             if (float.TryParse(reader.ReadLine(), out health) == false)
             {
                 return false;
@@ -155,15 +157,26 @@ namespace HelloWorld
             {
                 return false;
             }
-            //If successful, set update the member variables and return true.
             _playerName = name;
             _playerDamage = damage;
             _playerHealth = health;
             _playerSpeed = speed;
+            _playerMoney = money;
             return true;
         }
 
+        public void PrizeMoney()
+        {
+            if (_playerHealth > 0)
+            {
+                _playerMoney += 50;
+
+            }
+        }
+
+
+
+
     }
 
-    
 }

@@ -8,11 +8,13 @@ namespace HelloWorld
     {
         public string name;
         public int statIncrease;
+        public int cost;
 
-        public Item(string tempName,int tempStatIncrease)
+        public Item(string tempName,int tempStatIncrease,int tempCost)
         {
             name = tempName;
             statIncrease = tempStatIncrease;
+            cost = tempCost;
         }
 
 

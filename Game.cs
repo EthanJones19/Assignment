@@ -10,8 +10,9 @@ namespace HelloWorld
     
     class Game
     {
- 
-        
+
+
+        private Shop _shop = new Shop();
         private Player _player;
         private bool _gameOver;
         private Enemy[] _enemy;
@@ -36,7 +37,7 @@ namespace HelloWorld
         {
             Console.WriteLine("Name?");
             string name = Console.ReadLine();
-            Player _player = new Player(name, 100, 20, 50, 4);
+            Player _player = new Player(name, 100, 20, 100, 10, 4);
             return _player;
         }
 
@@ -48,15 +49,14 @@ namespace HelloWorld
             Console.Clear();
         }
 
-        public void SwitchWeapons(Player player)
+        public void SwitchWeapons(Player _player)
         {
-            Item[] inventory = player.InventoryView();
+            Item[] _inventory = _player.InventoryView();
 
             char input = ' ';
-            //Print all items to screen
-            for (int i = 0; i < inventory.Length; i++)
+            for (int i = 0; i > _inventory.Length; i++)
             {
-                Console.WriteLine((i + 1) + ". " + inventory[i].name + "\n Damage: " + inventory[i].statIncrease);
+                Console.WriteLine((i + 1) + ". " + _inventory[i].name + _inventory[i].statIncrease);
             }
             Console.Write("> ");
             input = Console.ReadKey().KeyChar;
@@ -65,23 +65,30 @@ namespace HelloWorld
             {
                 case '1':
                     {
-                        player.EquipItem(0);
-                        Console.WriteLine("You equipped " + inventory[0].name);
-                        Console.WriteLine("Base damage increased by " + inventory[0].statIncrease);
+                        _player.EquipItem(0);
+                        Console.WriteLine("You equipped " + _inventory[0].name);
+                        Console.WriteLine(_inventory[0].statIncrease);
                         break;
                     }
                 case '2':
                     {
-                        player.EquipItem(1);
-                        Console.WriteLine("You equipped " + inventory[1].name);
-                        Console.WriteLine("Base damage increased by " + inventory[1].statIncrease);
+                        _player.EquipItem(1);
+                        Console.WriteLine("You equipped " + _inventory[1].name);
+                        Console.WriteLine(_inventory[1].statIncrease);
                         break;
                     }
                 case '3':
                     {
-                        player.EquipItem(2);
-                        Console.WriteLine("You equipped " + inventory[2].name);
-                        Console.WriteLine("Base damage increased by " + inventory[2].statIncrease);
+                        _player.EquipItem(2);
+                        Console.WriteLine("You equipped " + _inventory[2].name);
+                        Console.WriteLine(_inventory[2].statIncrease);
+                        break;
+                    }
+                default:
+                    {
+                        _player.EquipItem(3);
+                        Console.WriteLine("You equipped " + _inventory[3].name);
+                        Console.WriteLine(_inventory[3].statIncrease);
                         break;
                     }
                 
@@ -135,7 +142,7 @@ namespace HelloWorld
             Console.WriteLine("The amount of rage inside you from the townspeople.");
             Console.WriteLine("You decide to let the rage explode and fight the drunk");
             ClearScreen();
-
+            /*
             //First fight
             while(_player.PlayerAlive() && _enemy[0].EnemyAlive())
             {
@@ -170,6 +177,13 @@ namespace HelloWorld
                 Console.WriteLine("Game Over");
             }
 
+            else _player.PrizeMoney();
+            {
+                Console.WriteLine("You killed him!");
+                Console.WriteLine("You gained 50 coins");
+            }
+
+
             //Second Fight
             while (_player.PlayerAlive() && _enemy[1].EnemyAlive())
             {
@@ -198,11 +212,16 @@ namespace HelloWorld
                 }
 
             }
-            
+
             if (_player.PlayerDead())
             {
                 _gameOver = true;
                 Console.WriteLine("Game Over");
+            }
+
+            else _player.PrizeMoney();
+            {
+                Console.WriteLine("You gained 50 coins");
             }
 
             //Third Fight
@@ -233,13 +252,13 @@ namespace HelloWorld
                 }
 
             }
-           
+           */
             if (_player.PlayerDead())
             {
                 _gameOver = true;
                 Console.WriteLine("Game Over");
             }
-
+            
             //Fourth Fight
             while (_player.PlayerAlive() && _enemy[3].EnemyAlive())
             {
@@ -248,59 +267,49 @@ namespace HelloWorld
                 _enemy[3].EnemyStats();
                 Console.WriteLine("-----------------------------------------");
 
-                char input;
-                GetInput(out input, " Attack", "Switch Weapons", "Save Game", " ");
+                SwitchWeapons(_player);
 
-                if (input == '1')
+                if (_player.FasterSpeed())
                 {
-                    Console.WriteLine("Player dealt " + _player.Attack(enemy));
-                    Console.WriteLine("Enemy dealt " + _enemy[3].Attack(_player));
-                    Console.WriteLine("-----------------------------------------");
-                    Console.Clear();
+                    Console.WriteLine("You won");
+                    _gameOver = true;
                 }
-                else if (input == '2')
-                {
-                    SwitchWeapons(_player);
-                }
+                
                 else
                 {
-                    Save();
+                    _enemy[3].EnemySpeed();
+                    Console.WriteLine("You lose");
+                    _gameOver = true;
                 }
+               
 
             }
-            if (_player.PlayerDead())
-            {
-                _gameOver = true;
-                Console.WriteLine("Game Over");
-            }
-
-            _gameOver = true;
+          
 
         }
 
-        
+        //public void PlayerIsFaster()
+        //{
+            //_player.FasterSpeed();
+            //Console.WriteLine(" ");
+            //_gameOver = true;
 
-        
+        //}
+
 
 
 
         public void Save()
         {
-            //Create a new stream writer.
             StreamWriter writer = new StreamWriter("SaveData.txt");
-            //Call save for both instances for player.
             _player.Save(writer);
-            //Close writer.
             writer.Close();
         }
 
         public void Load()
         {
-            //Create a new stream reader.
             StreamReader reader = new StreamReader("SaveData.txt");
-            //Call load for each instance of player to load data.
             _player.Load(reader);
-            //Close reader
             reader.Close();
         }
 
@@ -312,7 +321,6 @@ namespace HelloWorld
             Console.Write("> ");
 
             input = ' ';
-            //loop until valid input is received
             while (input != '1' && input != '2')
             {
                 input = Console.ReadKey().KeyChar;
@@ -337,6 +345,7 @@ namespace HelloWorld
             _player = CreateCharacter();
         }
 
+       
 
 
 
