@@ -37,7 +37,7 @@ namespace HelloWorld
         {
             Console.WriteLine("Name?");
             string name = Console.ReadLine();
-            Player _player = new Player(name, 100, 20, 100, 10, 4);
+            Player _player = new Player(name, 100, 20, 100, 500, 4);
             return _player;
         }
 
@@ -54,7 +54,7 @@ namespace HelloWorld
             Item[] _inventory = _player.InventoryView();
 
             char input = ' ';
-            for (int i = 0; i > _inventory.Length; i++)
+            for (int i = 0; i < _inventory.Length; i++)
             {
                 Console.WriteLine((i + 1) + ". " + _inventory[i].name + _inventory[i].statIncrease);
             }
@@ -118,8 +118,8 @@ namespace HelloWorld
 
 
 
-
-        public void TheOldTown(Enemy enemy)
+        
+        public void TheOldTown()
         {
             //Starting of the game
             Console.WriteLine("A nice little town in the west. Nothing goes bad in this town right execpt one thing.");
@@ -142,7 +142,7 @@ namespace HelloWorld
             Console.WriteLine("The amount of rage inside you from the townspeople.");
             Console.WriteLine("You decide to let the rage explode and fight the drunk");
             ClearScreen();
-            /*
+            
             //First fight
             while(_player.PlayerAlive() && _enemy[0].EnemyAlive())
             {
@@ -156,7 +156,7 @@ namespace HelloWorld
 
                 if (input == '1')
                 {
-                    Console.WriteLine("Player dealt " + _player.Attack(enemy));
+                    Console.WriteLine("Player dealt " + _player.Attack(_enemy[0]));
                     Console.WriteLine("Enemy dealt " + _enemy[0].Attack(_player));
                     Console.WriteLine("-----------------------------------------");
                     Console.Clear();
@@ -182,7 +182,7 @@ namespace HelloWorld
                 Console.WriteLine("You killed him!");
                 Console.WriteLine("You gained 50 coins");
             }
-
+            ShopMenu();
 
             //Second Fight
             while (_player.PlayerAlive() && _enemy[1].EnemyAlive())
@@ -197,7 +197,7 @@ namespace HelloWorld
 
                 if (input == '1')
                 {
-                    Console.WriteLine("Player dealt " + _player.Attack(enemy));
+                    Console.WriteLine("Player dealt " + _player.Attack(_enemy[1]));
                     Console.WriteLine("Enemy dealt " + _enemy[1].Attack(_player));
                     Console.WriteLine("-----------------------------------------");
                     Console.Clear();
@@ -237,7 +237,7 @@ namespace HelloWorld
 
                 if (input == '1')
                 {
-                    Console.WriteLine("Player dealt " + _player.Attack(enemy));
+                    Console.WriteLine("Player dealt " + _player.Attack(_enemy[2]));
                     Console.WriteLine("Enemy dealt " + _enemy[2].Attack(_player));
                     Console.WriteLine("-----------------------------------------");
                     Console.Clear();
@@ -252,7 +252,7 @@ namespace HelloWorld
                 }
 
             }
-           */
+           
             if (_player.PlayerDead())
             {
                 _gameOver = true;
@@ -260,7 +260,7 @@ namespace HelloWorld
             }
             
             //Fourth Fight
-            while (_player.PlayerAlive() && _enemy[3].EnemyAlive())
+            while (!_gameOver && _enemy[3].EnemyAlive())
             {
                 _player.PlayerStats();
                 Console.WriteLine("-----------------------------------------");
@@ -268,35 +268,117 @@ namespace HelloWorld
                 Console.WriteLine("-----------------------------------------");
 
                 SwitchWeapons(_player);
-
-                if (_player.FasterSpeed())
+                
+                if (_player.PlayerSpeed() >= _enemy[3].EnemySpeed())
                 {
+                    ClearScreen();
                     Console.WriteLine("You won");
                     _gameOver = true;
                 }
                 
                 else
                 {
+                    ClearScreen();
                     _enemy[3].EnemySpeed();
                     Console.WriteLine("You lose");
                     _gameOver = true;
                 }
-               
 
             }
-          
+            
 
         }
+        
+       
+        
+        private void ShopMenu()
+        {
+            Console.WriteLine("Welcome stranger! What can I getcha?");
+            Item[] shopInventory = _shop.GetShopInventory();
 
-        //public void PlayerIsFaster()
-        //{
-            //_player.FasterSpeed();
-            //Console.WriteLine(" ");
-            //_gameOver = true;
-
-        //}
+            ShowInventory(shopInventory);
 
 
+            char input = Console.ReadKey().KeyChar;
+            int itemIndex = -1;
+            switch (input)
+            {
+                case '1':
+                    {
+                        itemIndex = 0;
+                        break;
+                    }
+                case '2':
+                    {
+                        itemIndex = 1;
+                        break;
+                    }
+                case '3':
+                    {
+                        itemIndex = 2;
+                        break;
+                    }
+                case '4':
+                    {
+                        itemIndex = 3;
+                        break;
+                    }
+                default:
+                    {
+                        return;
+                    }
+
+            }
+
+            if (_player.GetMoney() < shopInventory[itemIndex].cost)
+            {
+                Console.WriteLine("You don't have enough.");
+                return;
+            }
+            Console.WriteLine("Replace slot.");
+            ShowInventory(_player.InventoryView());
+            input = Console.ReadKey().KeyChar;
+            int _playerIndex = -1;
+            switch (input)
+            {
+                case '1':
+                    {
+                        _playerIndex = 0;
+                        break;
+                    }
+
+                case '2':
+                    {
+                        _playerIndex = 1;
+                        break;
+                    }
+                case '3':
+                    {
+                        _playerIndex = 2;
+                        break;
+                    }
+                case '4':
+                    {
+                        _playerIndex = 3;
+                        break;
+                    }
+                default:
+                    {
+                        return;
+                    }
+            }
+            _player.Buy(shopInventory[itemIndex], _playerIndex);
+           
+        }
+
+        public void ShowInventory(Item[] inventory)
+        {
+            for (int i = 0; i < inventory.Length; i++)
+            {
+                Console.WriteLine((i + 1) + " " + inventory[i].name + inventory[i].cost);
+            }
+        }
+        
 
 
         public void Save()
@@ -363,15 +445,12 @@ namespace HelloWorld
         public void Update()
         {
             OpenMainMenu();
-            foreach(Enemy enemy in _enemy)
-            {
-                TheOldTown(enemy);
-            }
+            TheOldTown();
         }
 
         public void End()
         {
-
+            Console.WriteLine("Thank You for playing!");
         }
     }
 }

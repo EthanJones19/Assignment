@@ -71,7 +71,7 @@ namespace HelloWorld
 
         public bool Contain(int itemIndex)
         {
-            if (itemIndex > 0 && itemIndex < _inventory.Length)
+            if (itemIndex >= 0 && itemIndex < _inventory.Length)
             {
                 return true;
             }
@@ -82,18 +82,20 @@ namespace HelloWorld
         {
             if (Contain(itemIndex))
             {
-                _playerSpeed -= _equipedWeapon.statIncrease;
-                _equipedWeapon = _inventory[itemIndex];
                 _playerSpeed += _equipedWeapon.statIncrease;
+                _equipedWeapon = _inventory[itemIndex];
+                _playerSpeed -= _equipedWeapon.statIncrease;
             }
 
         }
-
-
-        public Item[] EnterInventory()
+        
+        public void SpecialHealingBeer()
         {
-            return _inventory;
+
         }
+
+
+
 
         public string GetPlayerName()
         {
@@ -107,7 +109,7 @@ namespace HelloWorld
 
         public bool PlayerDead()
         {
-            return _playerHealth < 0;
+            return _playerHealth <= 0;
         }
 
         public virtual float Attack(Enemy enemy)
@@ -126,12 +128,33 @@ namespace HelloWorld
             return damageVal;
         }
 
-        public bool FasterSpeed()
+        public float PlayerSpeed()
         {
-            return _playerSpeed > 0;
+            return _playerSpeed;
         }
 
-      
+        public void Buy(Item item, int inventoryIndex)
+        {
+            if (_playerMoney >= item.cost)
+            {
+                _playerMoney -= item.cost;
+
+                _inventory[inventoryIndex] = item;
+                Console.WriteLine("Item has been purchased.");
+            }
+
+            else
+            {
+                Console.WriteLine("You need more money to buy this item, chief.");
+
+            }
+        }
+
+        public int GetMoney()
+        {
+            return _playerMoney;
+        }
+
 
 
         public virtual void Save(StreamWriter writer)
@@ -139,6 +162,7 @@ namespace HelloWorld
             writer.WriteLine(_playerName);
             writer.WriteLine(_playerHealth);
             writer.WriteLine(_playerDamage);
+            writer.WriteLine(_playerSpeed);
             writer.WriteLine(_playerSpeed);
         }
 
