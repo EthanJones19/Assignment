@@ -252,6 +252,7 @@ namespace HelloWorld
             ClearScreen();//Clears screen
 
             ShopMenu();//Player enters shop
+            ClearScreen();//Clears screen
 
             _player.SpecialHealingBeer();//Heals player's health
 
@@ -504,20 +505,20 @@ namespace HelloWorld
         {
             _gameOver = false;
             _enemy = new Enemy[4];
-            _player = new Player();
-            _enemy[0] = new Drunky("Drunky", 40, 10, 10);
-            _enemy[1] = new Bandit("Bandit", 60, 20, 10);
-            _enemy[2] = new Chupacabra("Chupacabra", 80, 30, 10);
-            _enemy[3] = new BanditLeader("Leader", 1337, 0, 70);
+            _player = new Player();//Player creates new player
+            _enemy[0] = new Drunky("Drunky", 40, 10, 10);//Drunky stats
+            _enemy[1] = new Bandit("Bandit", 60, 20, 10);//Bandit stats
+            _enemy[2] = new Chupacabra("Chupacabra", 80, 30, 10);//Chupacabra stats
+            _enemy[3] = new BanditLeader("Leader", 1337, 0, 70);//BanditLeader stats
         }
 
-        public void Update()
+        public void Update()//Updates the game
         {
             OpenMainMenu();
             TheOldTown();
         }
 
-        public void End()
+        public void End()//Ends game
         {
             Console.WriteLine("Thank You for playing!");
         }

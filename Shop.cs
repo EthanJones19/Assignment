@@ -13,7 +13,7 @@ namespace HelloWorld
         protected Item _item3 = new Item("Gun ", 30, 50);
         protected Item _item4 = new Item("Rifle ", 50, 60);
 
-        public Shop()
+        public Shop()//Shows shop's items
         {
             inventory[0] = _item1;
             inventory[1] = _item2;
@@ -24,7 +24,7 @@ namespace HelloWorld
 
         
 
-        public Item[] GetShopInventory()
+        public Item[] GetShopInventory()//Gets shop's inventory
         {
             return inventory;
         }

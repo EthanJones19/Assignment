@@ -19,8 +19,9 @@ namespace HelloWorld
             float maxDamage = _enemyDamage;
             return player.TakenDamage(maxDamage);
         }
+        //Override constructor
 
     }
 
-    
+
 }

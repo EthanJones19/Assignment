@@ -10,7 +10,7 @@ namespace HelloWorld
         protected string _enemyName;
         protected float _enemyDamage;
         protected float _enemySpeed;
-
+        //Enemy's nothing stats
         public Enemy()
         {
             _enemyHealth = 100;
@@ -18,7 +18,7 @@ namespace HelloWorld
             _enemyDamage = 100;
             _enemySpeed = 100;
         }
-
+        //Constructor
         public Enemy(float healthVal, string nameVal, float damageVal, float speedVal)
         {
             _enemyHealth = healthVal;
@@ -26,7 +26,7 @@ namespace HelloWorld
             _enemyDamage = damageVal;
             _enemySpeed = speedVal;
         }
-
+        //Prints enemy's stats
         public void EnemyStats()
         {
             Console.WriteLine("Name: " + _enemyName);
@@ -36,7 +36,7 @@ namespace HelloWorld
         }
 
 
-
+        //Enemy takes damage function
         public virtual float TakenDamage(float damageVal)
         {
             _enemyHealth -= damageVal;
@@ -48,19 +48,20 @@ namespace HelloWorld
 
         }
 
-
+        //Attack function for enemy
         public virtual float Attack(Player player)
         {
             float damageTaken = player.TakenDamage(_enemyDamage);
             return damageTaken;
         }
 
+        //Returns enemy speed
         public float EnemySpeed()
         {
             return _enemySpeed;
         }
 
-
+        //Enemy is alive function
         public bool EnemyAlive()
         {
             return _enemyHealth > 0;

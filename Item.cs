@@ -10,7 +10,7 @@ namespace HelloWorld
         public int statIncrease;
         public int cost;
 
-        public Item(string tempName,int tempStatIncrease,int tempCost)
+        public Item(string tempName,int tempStatIncrease,int tempCost)//Gives item stats
         {
             name = tempName;
             statIncrease = tempStatIncrease;

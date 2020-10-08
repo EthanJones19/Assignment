@@ -24,7 +24,7 @@ namespace HelloWorld
 
 
 
-
+        //Player's nothing stats
         public Player()
         {
             _playerHealth = 100;
@@ -49,6 +49,7 @@ namespace HelloWorld
             _inventory[2] = _item3;
             _inventory[3] = _item4;
         }
+        //Constructor
 
         public void PlayerStats()
         {
@@ -58,17 +59,17 @@ namespace HelloWorld
             Console.WriteLine("Reaction Speed: " + _playerSpeed);
             Console.WriteLine("Coins: " + _playerMoney);
         }
-
+        //Prints player stats
 
 
         public Item[] InventoryView()
         {
             return _inventory;
         }
+        //Views player's inventory
 
 
-
-
+        //Contains item function
         public bool Contain(int itemIndex)
         {
             if (itemIndex >= 0 && itemIndex < _inventory.Length)
@@ -78,6 +79,7 @@ namespace HelloWorld
             return false;
         }
 
+        //Equips item function
         public void EquipItem(int itemIndex)
         {
             if (Contain(itemIndex))
@@ -91,6 +93,7 @@ namespace HelloWorld
 
         }
         
+        //Heals player to max health
         public void SpecialHealingBeer()
         {
             if (_playerHealth < MaxHealth())
@@ -99,33 +102,34 @@ namespace HelloWorld
             }
         }
 
+        //Player's max Health
         public float MaxHealth()
         {
             return 100;
         }
 
-
+        //Gets player name for player
         public string GetPlayerName()
         {
             return _playerName;
         }
-
+        //Player is alive function
         public bool PlayerAlive()
         {
             return _playerHealth > 0;
         }
-
+        //Player is dead function
         public bool PlayerDead()
         {
             return _playerHealth <= 0;
         }
-
+        //Attack function for player
         public virtual float Attack(Enemy enemy)
         {
             float damageTaken = enemy.TakenDamage(_playerDamage);
             return damageTaken;
         }
-
+        //Player takes damage function
         public virtual float TakenDamage(float damageVal)
         {
             _playerHealth -= damageVal;
@@ -135,12 +139,12 @@ namespace HelloWorld
             }
             return damageVal;
         }
-
+        //Returns player speed
         public float PlayerSpeed()
         {
             return _playerSpeed;
         }
-
+        //Player Buy function
         public void Buy(Item item, int inventoryIndex)
         {
             if (_playerMoney >= item.cost)
@@ -157,14 +161,14 @@ namespace HelloWorld
 
             }
         }
-
+        //Get money function
         public int GetMoney()
         {
             return _playerMoney;
         }
 
 
-
+        //Saves player's stats
         public virtual void Save(StreamWriter writer)
         {
             writer.WriteLine(_playerName);
@@ -173,7 +177,7 @@ namespace HelloWorld
             writer.WriteLine(_playerSpeed);
             writer.WriteLine(_playerSpeed);
         }
-
+        //Loads player's stats
         public virtual bool Load(StreamReader reader)
         {
             string name = reader.ReadLine();
@@ -196,7 +200,7 @@ namespace HelloWorld
             _playerMoney = money;
             return true;
         }
-
+        //Prize money function
         public void PrizeMoney()
         {
             if (_playerHealth > 0)
