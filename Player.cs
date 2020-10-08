@@ -16,10 +16,10 @@ namespace HelloWorld
         protected float _playerSpeed;
         protected Item[] _inventory = new Item[4];
         protected Item _equipedWeapon = new Item("none ", 0, 0);
-        protected Item _item1 = new Item("cool ", 40, 0);
-        protected Item _item2 = new Item("pop ", 0, 0);
-        protected Item _item3 = new Item("apple ", 0, 0);
-        protected Item _item4 = new Item("taco ", 0, 0);
+        protected Item _item1 = new Item("none ", 0, 0);
+        protected Item _item2 = new Item("none ", 0, 0);
+        protected Item _item3 = new Item("none ", 0, 0);
+        protected Item _item4 = new Item("none ", 0, 0);
 
 
 
@@ -82,19 +82,27 @@ namespace HelloWorld
         {
             if (Contain(itemIndex))
             {
+                _playerDamage -= _equipedWeapon.statIncrease;
                 _playerSpeed += _equipedWeapon.statIncrease;
                 _equipedWeapon = _inventory[itemIndex];
                 _playerSpeed -= _equipedWeapon.statIncrease;
+                _playerDamage += _equipedWeapon.statIncrease;
             }
 
         }
         
         public void SpecialHealingBeer()
         {
-
+            if (_playerHealth < MaxHealth())
+            {
+                _playerHealth = MaxHealth();
+            }
         }
 
-
+        public float MaxHealth()
+        {
+            return 100;
+        }
 
 
         public string GetPlayerName()
@@ -193,7 +201,7 @@ namespace HelloWorld
         {
             if (_playerHealth > 0)
             {
-                _playerMoney += 50;
+                _playerMoney += 100;
 
             }
         }

@@ -15,6 +15,7 @@ namespace HelloWorld
             name = tempName;
             statIncrease = tempStatIncrease;
             cost = tempCost;
+            
         }
 
 

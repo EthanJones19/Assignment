@@ -11,14 +11,14 @@ namespace HelloWorld
     class Game
     {
 
-
+        
         private Shop _shop = new Shop();
         private Player _player;
         private bool _gameOver;
         private Enemy[] _enemy;
 
 
-
+        //Run the from Start to End
         public void Run()
         {
             Start();
@@ -32,15 +32,16 @@ namespace HelloWorld
         }
 
         
-
+        //Creates a character for player
         public Player CreateCharacter()
         {
             Console.WriteLine("Name?");
             string name = Console.ReadLine();
-            Player _player = new Player(name, 100, 20, 100, 500, 4);
+            Player _player = new Player(name, 100, 10, 100, 10, 4);
             return _player;
         }
 
+        //Input to clearscreen for player
         public void ClearScreen()
         {
             Console.WriteLine("Press any key to continue");
@@ -49,6 +50,7 @@ namespace HelloWorld
             Console.Clear();
         }
 
+        //If the player switches weapons
         public void SwitchWeapons(Player _player)
         {
             Item[] _inventory = _player.InventoryView();
@@ -96,7 +98,7 @@ namespace HelloWorld
         }
 
 
-
+        //Gives player inputs
         public void GetInput(out char input, string option1, string option2,string option3, string query)
         {
             Console.WriteLine(query);
@@ -118,16 +120,15 @@ namespace HelloWorld
 
 
 
-        
+        //Starting of the game
         public void TheOldTown()
         {
-            //Starting of the game
             Console.WriteLine("A nice little town in the west. Nothing goes bad in this town right execpt one thing.");
             Console.WriteLine();
             Console.WriteLine("You live in this town. " + "Pretty sure you expected to live in a small nice house, uhhh NO!");
             Console.WriteLine("You're a hobo and your life sucks. " + "Don't worry that will be change soon.");
             Console.WriteLine();
-            Console.WriteLine("People heard that strange bandits will arrive here." + "The towns people are scared right now.");
+            Console.WriteLine("People heard that strange bandits will arrive here." + "The townspeople are scared right now.");
             Console.WriteLine("You could help out, but townspeople treated you like garbage. " + "You refuse to help if they arrive.");
             Console.WriteLine();
             Console.WriteLine("People only respect you if you do something for them.");
@@ -136,151 +137,208 @@ namespace HelloWorld
             Console.WriteLine();
             Console.WriteLine("You're bored, so you decided to go look through stuff in the barrels");
             Console.WriteLine("You manage to find some coins in a barrel." + "You decide to buy a drink inside the saloon.");
-            ClearScreen();
+            ClearScreen();//Clears screen
 
             Console.WriteLine("While in the saloon. A drunk came up to you and started pushing you around.");
             Console.WriteLine("The amount of rage inside you from the townspeople.");
             Console.WriteLine("You decide to let the rage explode and fight the drunk");
-            ClearScreen();
-            
+            ClearScreen();//Clears screen
+
             //First fight
-            while(_player.PlayerAlive() && _enemy[0].EnemyAlive())
+            while (_player.PlayerAlive() && _enemy[0].EnemyAlive()) //If player and enemy is alive
             {
-                _player.PlayerStats();
+                _player.PlayerStats();//prints stats for player
                 Console.WriteLine("-----------------------------------------");
-                _enemy[0].EnemyStats();
+                _enemy[0].EnemyStats();//prints stats for enemy
                 Console.WriteLine("-----------------------------------------");
 
-                char input;
-                GetInput(out input, " Attack", "Switch Weapons", "Save Game", " ");
+                char input;//Player inputs
+                GetInput(out input, "Attack", "Switch Weapons", "Save Game", " ");//Inputs for player during battle
 
-                if (input == '1')
+                if (input == '1')//First input
                 {
-                    Console.WriteLine("Player dealt " + _player.Attack(_enemy[0]));
-                    Console.WriteLine("Enemy dealt " + _enemy[0].Attack(_player));
+                    Console.WriteLine("Player dealt " + _player.Attack(_enemy[0]));//Player attacks
+                    Console.WriteLine("Enemy dealt " + _enemy[0].Attack(_player));//Enemy attacks
                     Console.WriteLine("-----------------------------------------");
                     Console.Clear();
                 }
-                else if (input == '2')
+                else if (input == '2')//Second input
                 {
-                    SwitchWeapons(_player);
+                    SwitchWeapons(_player);//Player switches weapons
                 }
-                else
+                else//Third input
                 {
-                    Save();
+                    Save();//Player saves game
                 }
 
             }
-            if (_player.PlayerDead())
+            if (_player.PlayerDead())//If player is dead
             {
                 _gameOver = true;
                 Console.WriteLine("Game Over");
             }
 
-            else _player.PrizeMoney();
+            else _player.PrizeMoney();//Player gains money when alive
             {
                 Console.WriteLine("You killed him!");
-                Console.WriteLine("You gained 50 coins");
+                Console.WriteLine("You gained 100 coins");
             }
-            ShopMenu();
+
+            ClearScreen();//Clears screen
+
+            Console.WriteLine("You felt good after that fight. The Bartender doesn't want anymore attention from what happened.");
+            Console.WriteLine("You decide to buy something quickly." + "You do get a free healing beer to along with your purchase");
+            Console.WriteLine("Note: The beer will fully restore your hp after battle.");
+            ClearScreen();//Clears screen
+
+            ShopMenu();//Player enters shop
+            ClearScreen();//Clears screen
+
+            Console.WriteLine("Bandits have arrived.");
+            Console.WriteLine("You don't care what happens to the town. " +
+                "The group of bandits wouldn't leave you alone." + "Annoyed, you decide to challenge the strongest bandit to scare them off.");
+            ClearScreen();//Clears screen
+
+            _player.SpecialHealingBeer();//Heals player's health
 
             //Second Fight
-            while (_player.PlayerAlive() && _enemy[1].EnemyAlive())
+            while (_player.PlayerAlive() && _enemy[1].EnemyAlive())//If player and enemy is alive
             {
-                _player.PlayerStats();
+                _player.PlayerStats();//prints stats for player
                 Console.WriteLine("-----------------------------------------");
-                _enemy[1].EnemyStats();
+                _enemy[1].EnemyStats();//prints stats for enemy
                 Console.WriteLine("-----------------------------------------");
 
-                char input;
-                GetInput(out input, " Attack", "Switch Weapons", "Save Game", " ");
+                char input;//Player inputs
+                GetInput(out input, "Attack", "Switch Weapons", "Save Game", " ");//Inputs for player during battle
 
-                if (input == '1')
+                if (input == '1')//First input
                 {
-                    Console.WriteLine("Player dealt " + _player.Attack(_enemy[1]));
-                    Console.WriteLine("Enemy dealt " + _enemy[1].Attack(_player));
+                    Console.WriteLine("Player dealt " + _player.Attack(_enemy[1]));//First attacks
+                    Console.WriteLine("Enemy dealt " + _enemy[1].Attack(_player));//Enemy attacks
                     Console.WriteLine("-----------------------------------------");
                     Console.Clear();
                 }
-                else if (input == '2')
+                else if (input == '2')//Second input
                 {
-                    SwitchWeapons(_player);
+                    SwitchWeapons(_player);//Player switches weapons
+                    Console.Clear();
                 }
-                else
+                else//Third input
                 {
-                    Save();
+                    Save();//Player saves game
                 }
 
             }
 
-            if (_player.PlayerDead())
+            if (_player.PlayerDead())//If player is dead
             {
                 _gameOver = true;
                 Console.WriteLine("Game Over");
             }
 
-            else _player.PrizeMoney();
+            else _player.PrizeMoney();//Player gains money when alive
             {
-                Console.WriteLine("You gained 50 coins");
+                Console.WriteLine("You killed him!");
+                Console.WriteLine("You gained 100 coins");
             }
 
+            ClearScreen();//Clears screen
+
+            Console.WriteLine("Bandits fear and walked back. You talked to the bandits, asking where their leader is.");
+            Console.WriteLine("You got directions ,but the bandits asked why.");
+            Console.WriteLine("You want to talk to him." + "Bandits told you can ,but you have to get pass his pet.");
+            Console.WriteLine("You don't really care along as you get to be alone." + "You decided to buy something first before going.");
+            ClearScreen();//Clears screen
+
+            ShopMenu();//Player enters shop
+
+            _player.SpecialHealingBeer();//Heals player's health
+
             //Third Fight
-            while (_player.PlayerAlive() && _enemy[2].EnemyAlive())
+            while (_player.PlayerAlive() && _enemy[2].EnemyAlive())//If player and enemy is alive
             {
-                _player.PlayerStats();
+                _player.PlayerStats();//prints stats for player
                 Console.WriteLine("-----------------------------------------");
-                _enemy[2].EnemyStats();
+                _enemy[2].EnemyStats();//prints stats for enemy
                 Console.WriteLine("-----------------------------------------");
 
-                char input;
-                GetInput(out input, " Attack", "Switch Weapons", "Save Game", " ");
+                char input;//Player inputs
+                GetInput(out input, "Attack", "Switch Weapons", "Save Game", " ");//Inputs for player during battle
 
-                if (input == '1')
+                if (input == '1')//First input
                 {
-                    Console.WriteLine("Player dealt " + _player.Attack(_enemy[2]));
-                    Console.WriteLine("Enemy dealt " + _enemy[2].Attack(_player));
+                    Console.WriteLine("Player dealt " + _player.Attack(_enemy[2]));//First attacks
+                    Console.WriteLine("Enemy dealt " + _enemy[2].Attack(_player));//Enemy attacks
                     Console.WriteLine("-----------------------------------------");
                     Console.Clear();
                 }
-                else if (input == '2')
+                else if (input == '2')//Second input
                 {
-                    SwitchWeapons(_player);
+                    SwitchWeapons(_player);//Player switches weapons
+                    Console.Clear();
                 }
-                else
+                else//Third input
                 {
-                    Save();
+                    Save();//Player saves game
                 }
 
             }
            
-            if (_player.PlayerDead())
+            if (_player.PlayerDead())//If player is dead
             {
                 _gameOver = true;
                 Console.WriteLine("Game Over");
             }
-            
-            //Fourth Fight
-            while (!_gameOver && _enemy[3].EnemyAlive())
+
+            else _player.PrizeMoney();//Player gains money when alive
             {
-                _player.PlayerStats();
+                Console.WriteLine("You killed him!");
+                Console.WriteLine("You gained 100 coins");
+            }
+
+            ClearScreen();//Clears screen
+
+            Console.WriteLine("The end is near...");
+            Console.WriteLine("You challenge the leader to a stand off." + "He gladly accepts your challenge.");
+            Console.WriteLine("This will be your last time going to saloon. Buy what you need.");
+            ClearScreen();//Clears screen
+
+            ShopMenu();//Player enters shop
+            ClearScreen();//Clears screen
+
+            Console.WriteLine("During this fight, choose your weapons wisely.");
+            Console.WriteLine("This fight depends on speed than damage.");
+            ClearScreen();//Clears screen
+
+            _player.SpecialHealingBeer();//Heals player's health
+
+            //Fourth Fight
+            while (!_gameOver && _enemy[3].EnemyAlive())//If player and enemy is alive
+            {
+                _player.PlayerStats();//prints stats for player
                 Console.WriteLine("-----------------------------------------");
-                _enemy[3].EnemyStats();
+                _enemy[3].EnemyStats();//prints stats for enemy
                 Console.WriteLine("-----------------------------------------");
 
-                SwitchWeapons(_player);
-                
-                if (_player.PlayerSpeed() >= _enemy[3].EnemySpeed())
+                SwitchWeapons(_player);//Player switches weapons
+
+                if (_player.PlayerSpeed() >= _enemy[3].EnemySpeed())//If player is faster
                 {
-                    ClearScreen();
-                    Console.WriteLine("You won");
+                    ClearScreen();//Clears screen
+                    Console.WriteLine("You won!");
+                    Console.WriteLine("Before the leader dies, he wants you to be leader of the gang and honors your victory.");
+                    Console.WriteLine("You decided to take his place as leader and roam the world.");
+                    Console.WriteLine("GameOver");
                     _gameOver = true;
                 }
                 
-                else
+                else//If enemy is faster
                 {
-                    ClearScreen();
+                    ClearScreen();//Clears screen
                     _enemy[3].EnemySpeed();
                     Console.WriteLine("You lose");
+                    Console.WriteLine("gameOver");
                     _gameOver = true;
                 }
 
@@ -291,52 +349,61 @@ namespace HelloWorld
         
        
         
-        private void ShopMenu()
+        private void ShopMenu()//Shops Menu
         {
-            Console.WriteLine("Welcome stranger! What can I getcha?");
-            Item[] shopInventory = _shop.GetShopInventory();
-
-            ShowInventory(shopInventory);
-
-
-            char input = Console.ReadKey().KeyChar;
+            Item[] shopInventory = _shop.GetShopInventory();//Shop's inventory
             int itemIndex = -1;
-            switch (input)
+            char input;
+            while (true)//While player in shop
             {
-                case '1':
-                    {
-                        itemIndex = 0;
-                        break;
-                    }
-                case '2':
-                    {
-                        itemIndex = 1;
-                        break;
-                    }
-                case '3':
-                    {
-                        itemIndex = 2;
-                        break;
-                    }
-                case '4':
-                    {
-                        itemIndex = 3;
-                        break;
-                    }
-                default:
-                    {
-                        return;
-                    }
 
-            }
 
-            if (_player.GetMoney() < shopInventory[itemIndex].cost)
-            {
-                Console.WriteLine("You don't have enough.");
-                return;
+                Console.WriteLine("Welcome stranger! What can I getcha?");
+                Console.WriteLine("Make sure to leave after purchasing one item. I don't want trouble in my place!");
+                _player.PlayerStats();
+
+                ShowInventory(shopInventory);//Shows shop inventory
+
+
+                input = Console.ReadKey().KeyChar;
+                switch (input)
+                {
+                    case '1':
+                        {
+                            itemIndex = 0;
+                            break;
+                        }
+                    case '2':
+                        {
+                            itemIndex = 1;
+                            break;
+                        }
+                    case '3':
+                        {
+                            itemIndex = 2;
+                            break;
+                        }
+                    case '4':
+                        {
+                            itemIndex = 3;
+                            break;
+                        }
+                    default:
+                        {
+                            return;
+                        }
+                        //Item action switch
+                }
+
+                if (_player.GetMoney() < shopInventory[itemIndex].cost)//if player is low on money
+                {
+                    Console.WriteLine("You don't have enough.");
+                }
+
+                else break;
             }
             Console.WriteLine("Replace slot.");
-            ShowInventory(_player.InventoryView());
+            ShowInventory(_player.InventoryView());//Shows player inventory
             input = Console.ReadKey().KeyChar;
             int _playerIndex = -1;
             switch (input)
@@ -366,12 +433,12 @@ namespace HelloWorld
                     {
                         return;
                     }
-            }
-            _player.Buy(shopInventory[itemIndex], _playerIndex);
+            }//Player action switch
+            _player.Buy(shopInventory[itemIndex], _playerIndex);//If player buys item
            
         }
 
-        public void ShowInventory(Item[] inventory)
+        public void ShowInventory(Item[] inventory)//Shows inventory
         {
             for (int i = 0; i < inventory.Length; i++)
             {
@@ -381,21 +448,23 @@ namespace HelloWorld
         
 
 
-        public void Save()
+        public void Save()//Saves the game
         {
             StreamWriter writer = new StreamWriter("SaveData.txt");
             _player.Save(writer);
             writer.Close();
         }
 
-        public void Load()
+        public void Load()//Loads the game
         {
             StreamReader reader = new StreamReader("SaveData.txt");
             _player.Load(reader);
             reader.Close();
         }
+        
+        
 
-        public void GetInput(out char input, string option1, string option2, string query)
+        public void GetInput(out char input, string option1, string option2, string query)//If player gives input
         {
             Console.WriteLine(query);
             Console.WriteLine("1." + option1);
@@ -414,7 +483,7 @@ namespace HelloWorld
 
 
         }
-        public void OpenMainMenu()
+        public void OpenMainMenu()//Creates main menu
         {
             char input;
             GetInput(out input, "Create new character", "Load Character", "What do you wanna do?");
@@ -424,22 +493,22 @@ namespace HelloWorld
                 Load();
                 return;
             }
-            _player = CreateCharacter();
+            _player = CreateCharacter();//If player created character
         }
 
        
 
 
 
-        public void Start()
+        public void Start()//Starts game
         {
             _gameOver = false;
             _enemy = new Enemy[4];
             _player = new Player();
             _enemy[0] = new Drunky("Drunky", 40, 10, 10);
-            _enemy[1] = new Bandit("Bandit", 40, 10, 10);
-            _enemy[2] = new Chupacabra("Chupacabra", 40, 10, 10);
-            _enemy[3] = new BanditLeader("Leader", 40, 0, 70);
+            _enemy[1] = new Bandit("Bandit", 60, 20, 10);
+            _enemy[2] = new Chupacabra("Chupacabra", 80, 30, 10);
+            _enemy[3] = new BanditLeader("Leader", 1337, 0, 70);
         }
 
         public void Update()
