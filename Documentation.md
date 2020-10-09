@@ -46,605 +46,616 @@ _______________________________________________
 - Name: Bandit(string nameVal, float healthVal, float damageVal, float speedVal) :
             base(healthVal,nameVal,damageVal,speedVal)
 
-- Description: Sets bandit stats to base value.
+- Description: Sets bandit stats to base value. Constructor
 
-- Type: public Bandit
+- Type: public
 _______________________________________________
 
-- Name: Attack(Player player)
+- Name: Attack()
 
-- Description:
+- Description: Bandit is able to inflict damage
 
-- Type: public float
+- Type: public override float
 _______________________________________________
 
 **File**: BanditLeader.cs
-
-**Attributes**:
-
-- Name: public BanditLeader(string nameVal, float healthVal, float damageVal, float speedVal) :
-            base(healthVal, nameVal, damageVal, speedVal)
-
-- Description:
-
-- Type: public BanditLeader
 _______________________________________________
 
-- Name:
+**Attributes**:
+- inherited from Enemy
+_______________________________________________
 
-- Description:
+- Name: BanditLeader(string nameVal, float healthVal, float damageVal, float speedVal) :
+            base(healthVal,nameVal,damageVal,speedVal)
 
-- Type:
+- Description: Sets banditleader stats to base value. Constructor
+
+- Type: public
+_______________________________________________
+
+- Name: Attack()
+
+- Description: BanditLeader is able to inflict damage
+
+- Type: public override float
 _______________________________________________
 
 **File**: Chupacabra.cs
 
 **Attributes**:
-
-- Name:
-
-- Description:
-
-- Type:
+- inherited from Enemy
 _______________________________________________
 
-- Name:
+- Name: Chupacabra(string nameVal, float healthVal, float damageVal, float speedVal) :
+            base(healthVal,nameVal,damageVal,speedVal)
 
-- Description:
+- Description: Sets chupacabra stats to base value. Constructor
 
-- Type:
+- Type: public
+_______________________________________________
+
+- Name: Attack()
+
+- Description: Chupacabra is able to inflict damage
+
+- Type: public override float
 _______________________________________________
 
 **File**: Drunky.cs
 
 **Attributes**:
+- inherited from Enemy
 
-- Name:
+- Name: Drunky(string nameVal, float healthVal, float damageVal, float speedVal) :
+            base(healthVal,nameVal,damageVal,speedVal)
 
-- Description:
+- Description: Sets drunky stats to base value. Constructor
 
-- Type:
+- Type: public
 _______________________________________________
 
-- Name:
+- Name: Attack()
 
-- Description:
+- Description: Drunky is able to inflict damage
 
-- Type:
+- Type: public override float
 _______________________________________________
 
 **File**: Enemy.cs
 
 **Attributes**:
 
-- Name:
+- Name: _enemyHealth
 
-- Description:
+- Description: Sets enemy health value
 
-- Type:
+- Type: protected float
 _______________________________________________
 
-- Name:
+- Name: _enemyName
 
-- Description:
+- Description: Sets enemy name value
 
-- Type:
+- Type: protected string
 _______________________________________________
 
-- Name:
+- Name: _enemyDamage
 
-- Description:
+- Description: Sets enemy damage value
 
-- Type:
+- Type: protected float
 _______________________________________________
 
-- Name:
+- Name: _enemySpeed
 
-- Description:
+- Description: Sets enemy speed value
 
-- Type:
+- Type: protected float
 _______________________________________________
 
-- Name:
+- Name: Enemy()
 
-- Description:
+- Description: Sets enemy's stat values
 
-- Type:
+- Type: public
 _______________________________________________
 
-- Name:
+- Name: Enemy(float healthVal, string nameVal, float damageVal, float speedVal)
 
-- Description:
+- Description: Sets enemy stats to base value.
+Constructor
 
-- Type:
+- Type: public
 _______________________________________________
 
-- Name:
+- Name:EnemyStats()
 
-- Description:
+- Description: Displays enemy's stats
 
-- Type:
+- Type: public void
 _______________________________________________
 
-- Name:
+- Name: TakenDamage()
 
-- Description:
+- Description: Enemy can take damage
 
-- Type:
+- Type: public virtual float
 _______________________________________________
 
-- Name:
+- Name: Attack()
 
-- Description:
+- Description: Enemy is able to inflict damage
 
-- Type:
+- Type: public virtual float
 _______________________________________________
 
-- Name:
+- Name: EnemySpeed()
 
-- Description:
+- Description: Returns enemy speed
 
-- Type:
+- Type: public float
 _______________________________________________
 
-- Name:
+- Name: EnemyAlive()
 
-- Description:
+- Description: If enemy health is greater than 0
 
-- Type:
+- Type: public bool
 _______________________________________________
 
 **File**:Item.cs
 
 **Attributes**:
 
-- Name:
+- Name: name
 
-- Description:
+- Description: Sets item's name value
 
-- Type:
+- Type: public string
 _______________________________________________
 
-- Name:
+- Name: statIncrease
 
-- Description:
+- Description: Set to increase stat value
 
-- Type:
+- Type: public int
 _______________________________________________
 
-- Name:
+- Name: cost
 
-- Description:
+- Description: Sets item cost value
 
-- Type:
+- Type: public int
 _______________________________________________
 
-- Name:
+- Name: Item(string tempName,int tempStatIncrease,int tempCost)
 
-- Description:
+- Description: Sets item stats to base value.
+Constructor
 
-- Type:
+- Type: public
 _______________________________________________
 
 **File**: Shop.cs
 
 **Attributes**:
 
-- Name:
+- Name: Item[] inventory = new Item[]
 
-- Description:
+- Description: Sets shop inventory with new item
 
-- Type:
+- Type: public
 _______________________________________________
 
-- Name:
+- Name: Item _item1 = new Item()
 
-- Description:
+- Description: This item will become new item
 
-- Type:
+- Type: protected
 _______________________________________________
 
-- Name:
+- Name: _item2 = new Item()
 
-- Description:
+- Description: This item will become new item
 
-- Type:
+- Type: protected
 _______________________________________________
 
-- Name:
+- Name: _item3 = new Item()
 
-- Description:
+- Description: This item will become new item
 
-- Type:
+- Type: protected
 _______________________________________________
 
-- Name:
+- Name: _item4 = new Item()
 
-- Description:
+- Description: This item will become new item
 
-- Type:
+- Type: protected
 _______________________________________________
 
-- Name:
+- Name: Shop()
 
-- Description:
+- Description: Sets items in inventory
 
-- Type:
+- Type: public
 _______________________________________________
 
 
-- Name:
+- Name: Item[] GetShopInventory()
 
-- Description:
+- Description: Gets shop's inventory
 
-- Type:
+- Type:public
 _______________________________________________
 
 **File**: Player.cs
 
 **Attributes**:
 
-- Name:
+- Name: _playerHealth
 
-- Description:
+- Description: Sets player health value
 
-- Type:
+- Type: protected float
 _______________________________________________
 
-- Name:
+- Name: _playerName
 
-- Description:
+- Description: Sets player name value
 
-- Type:
+- Type: protected string
 _______________________________________________
 
-- Name:
+- Name: _playerDamage
 
-- Description:
+- Description: Sets player damage value
 
-- Type:
+- Type: protected float
 _______________________________________________
 
-- Name:
+- Name: _playerMoney;
 
-- Description:
+- Description: Sets player money value
 
-- Type:
+- Type: protected int
 _______________________________________________
 
-- Name:
+- Name: _playerSpeed
 
-- Description:
+- Description: Sets player speed value
 
-- Type:
+- Type: protected float
 _______________________________________________
 
-- Name:
+- Name:Item[] _inventory = new Item[]
 
-- Description:
+- Description: Sets player inventory with new item
 
-- Type:
+- Type: protected
 _______________________________________________
 
-- Name:
+- Name: Item _equippedWeapon = new Item()
 
-- Description:
+- Description: Sets player equipped item with new item
 
-- Type:
+- Type: protected
 _______________________________________________
 
-- Name:
+- Name: _item1 = new Item()
 
-- Description:
+- Description: This item will become new item
 
-- Type:
+- Type: protected
 _______________________________________________
 
-- Name:
+- Name: _item2 = new Item()
 
-- Description:
+- Description: This item will become new item
 
-- Type:
+- Type: protected
 _______________________________________________
 
-- Name:
+- Name: _item3 = new Item()
 
-- Description:
+- Description: This item will become new item
 
-- Type:
+- Type: protected
 _______________________________________________
 
-- Name:
+- Name: _item4 = new Item()
 
-- Description:
+- Description: This item will become new item
 
-- Type:
+- Type: protected
 _______________________________________________
 
-- Name:
+- Name: Player()
 
-- Description:
+- Description: Sets player's stat values
 
-- Type:
+- Type: public
 _______________________________________________
 
-- Name:
+- Name: Player(string nameVal, float healthVal, float damageVal, float speedVal, int moneyVal, int inventorySize)
 
-- Description:
+- Description: Sets player stats to base value.
+Constructor
 
-- Type:
+- Type: public
 _______________________________________________
 
-- Name:
+- Name: PlayerStats()
 
-- Description:
+- Description: Displays player's stats
 
-- Type:
+- Type: public void
 _______________________________________________
 
-- Name:
+- Name: Item[] InventoryView()
 
-- Description:
+- Description: Shows player's inventory
 
-- Type:
+- Type: public
 _______________________________________________
 
-- Name:
+- Name: Contain()
 
-- Description:
+- Description: Contains the item
 
-- Type:
+- Type: public
 _______________________________________________
 
-- Name:
+- Name: EquipItem()
 
-- Description:
+- Description: Equipping the item
 
-- Type:
+- Type: public void
 _______________________________________________
 
-- Name:
+- Name: SpecialHealingBeer()
 
-- Description:
+- Description: Heals player health at max if player health is greater than max health
 
-- Type:
+- Type: public void
 _______________________________________________
 
-- Name:
+- Name: MaxHealth()
 
-- Description:
+- Description: Sets max health
 
-- Type:
+- Type: public float
 _______________________________________________
 
-- Name:
+- Name: GetPlayerName()
 
-- Description:
+- Description: Gets player's name
 
-- Type:
+- Type: public string
 _______________________________________________
 
-- Name:
+- Name: PlayerAlive()
 
-- Description:
+- Description: If player health is greater than 0
 
-- Type:
+- Type: public bool
 _______________________________________________
 
-- Name:
+- Name: PlayerDead()
 
-- Description:
+- Description: If player health is less than 0
 
-- Type:
+- Type: public bool
 _______________________________________________
 
-- Name:
+- Name: Attack()
 
-- Description:
+- Description: Player is able to inflict damage
 
-- Type:
+- Type: public virtual float
 _______________________________________________
 
-- Name:
+- Name: TakenDamage()
 
-- Description:
+- Description: Player is able to take damage
 
-- Type:
+- Type: public virtual float
 _______________________________________________
 
-- Name:
+- Name: PlayerSpeed()
 
-- Description:
+- Description: Returns player speed
 
-- Type:
+- Type: public float
 _______________________________________________
 
-- Name:
+- Name: Buy()
 
-- Description:
+- Description: Able to buy if player money is greater or equal to 0
 
-- Type:
+- Type: public void
 _______________________________________________
 
-- Name:
+- Name: GetMoney()
 
-- Description:
+- Description: Gets the player's money
 
-- Type:
+- Type: public int
 _______________________________________________
 
-- Name:
+- Name: Save()
 
-- Description:
+- Description: Saves player's stats,items,and current fight
 
-- Type:
+- Type: public virtual void
 _______________________________________________
 
-- Name:
+- Name: Load()
 
-- Description:
+- Description: Loads player's stats,items, and current fight
 
-- Type:
+- Type: public virtual bool
 _______________________________________________
 
-- Name:
+- Name:PrizeMoney()
 
-- Description:
+- Description: Player gains money if player health is greater than 0
 
-- Type:
+- Type: public void
 _______________________________________________
 
 **File**: Game.cs
 
 **Attributes**:
 
-- Name:
+- Name: _currentfight
 
-- Description:
+- Description: Sets current fight
 
-- Type:
+- Type: private int
 _______________________________________________
 
-- Name:
+- Name: _shop = Shop()
 
-- Description:
+- Description: Sets new shop
 
-- Type:
+- Type: private
 _______________________________________________
 
-- Name:
+- Name: _player
 
-- Description:
+- Description: Sets player
 
-- Type:
+- Type: private
 _______________________________________________
 
-- Name:
+- Name: _gameOver
 
-- Description:
+- Description: Sets game over
 
-- Type:
+- Type: private bool
 _______________________________________________
 
-- Name:
+- Name: Enemy[] _enemy
 
-- Description:
+- Description: Sets new enemy
 
-- Type:
+- Type: private
 _______________________________________________
 
-- Name:
+- Name: Run()
 
-- Description:
+- Description: Runs the game by start to end
 
-- Type:
+- Type: public void
 _______________________________________________
 
-- Name:
+- Name: CreateCharacter()
 
-- Description:
+- Description: Creates new player
 
-- Type:
+- Type: public
 _______________________________________________
 
-- Name:
+- Name: ClearScreen()
 
-- Description:
+- Description: Sets a option to clear the screen
 
-- Type:
+- Type: public void
 _______________________________________________
 
-- Name:
+- Name: SwitchWeapons()
 
-- Description:
+- Description: Able to switch weapons in inventory
 
-- Type:
+- Type: public void
 _______________________________________________
 
-- Name:
+- Name: GetInput()
 
-- Description:
+- Description: Gets player's input
 
-- Type:
+- Type: public void
 _______________________________________________
 
-- Name:
+- Name: TheOldTown()
 
-- Description:
+- Description: Main game that starts up the current fights.
 
-- Type:
+- Type: public void
 _______________________________________________
 
-- Name:
+- Name: ShopMenu()
 
-- Description:
+- Description: Starts up shop menu
 
-- Type:
+- Type: private void
 _______________________________________________
 
-- Name:
+- Name: ShowInventory()
 
-- Description:
+- Description: Shows inventory for player and shop
 
-- Type:
+- Type: public void
 _______________________________________________
 
-- Name:
+- Name: Save()
 
-- Description:
+- Description: Able to save the game
 
-- Type:
+- Type: public void
 _______________________________________________
 
-- Name:
+- Name: Load()
 
-- Description:
+- Description: Able to load the game
 
-- Type:
+- Type: public void
 _______________________________________________
 
-- Name:
+- Name: GetInput()
 
-- Description:
+- Description: Gets player's input
 
-- Type:
+- Type: public void
 _______________________________________________
 
-- Name:
+- Name: OpenMainMenu()
 
-- Description:
+- Description: Starts up main menu
 
-- Type:
+- Type: public void
 _______________________________________________
 
-- Name:
+- Name: Start()
 
-- Description:
+- Description: Starts the game
 
-- Type:
+- Type: public void
 _______________________________________________
 
-- Name:
+- Name: Update()
 
-- Description:
+- Description: Updates the game
 
-- Type:
+- Type: public void
 _______________________________________________
 
-- Name:
+- Name: End()
 
-- Description:
+- Description: Ends the game
 
-- Type:
+- Type: public void
 _______________________________________________
 
 **File**: Program.cs
 
 **Attributes**:
 
-- Name:
+- Name: Main()
 
-- Description:
+- Description: Runs the program
 
-- Type:
+- Type: static void
 _______________________________________________

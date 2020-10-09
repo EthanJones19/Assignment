@@ -15,7 +15,7 @@ namespace HelloWorld
         protected int _playerMoney;
         protected float _playerSpeed;
         protected Item[] _inventory = new Item[4];
-        protected Item _equipedWeapon = new Item(" none ", 0, 0);
+        protected Item _equippedWeapon = new Item(" none ", 0, 0);
         protected Item _item1 = new Item(" none ", 0, 0);
         protected Item _item2 = new Item(" none ", 0, 0);
         protected Item _item3 = new Item(" none ", 0, 0);
@@ -84,11 +84,11 @@ namespace HelloWorld
         {
             if (Contain(itemIndex))
             {
-                _playerDamage -= _equipedWeapon.statIncrease;
-                _playerSpeed += _equipedWeapon.statIncrease;
-                _equipedWeapon = _inventory[itemIndex];
-                _playerSpeed -= _equipedWeapon.statIncrease;
-                _playerDamage += _equipedWeapon.statIncrease;
+                _playerDamage -= _equippedWeapon.statIncrease;
+                _playerSpeed += _equippedWeapon.statIncrease;
+                _equippedWeapon = _inventory[itemIndex];
+                _playerSpeed -= _equippedWeapon.statIncrease;
+                _playerDamage += _equippedWeapon.statIncrease;
             }
 
         }
