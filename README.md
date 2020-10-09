@@ -7,7 +7,7 @@
 
  ##Requires Key Board
  
- ##Inside this folder double click executable file.
+ ##Inside this folder double click executable file to run the game.
 
  #### I. How to Play:
  + A list of options will display
