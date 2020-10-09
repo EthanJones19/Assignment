@@ -15,11 +15,11 @@ namespace HelloWorld
         protected int _playerMoney;
         protected float _playerSpeed;
         protected Item[] _inventory = new Item[4];
-        protected Item _equipedWeapon = new Item("none ", 0, 0);
-        protected Item _item1 = new Item("none ", 0, 0);
-        protected Item _item2 = new Item("none ", 0, 0);
-        protected Item _item3 = new Item("none ", 0, 0);
-        protected Item _item4 = new Item("none ", 0, 0);
+        protected Item _equipedWeapon = new Item(" none ", 0, 0);
+        protected Item _item1 = new Item(" none ", 0, 0);
+        protected Item _item2 = new Item(" none ", 0, 0);
+        protected Item _item3 = new Item(" none ", 0, 0);
+        protected Item _item4 = new Item(" none ", 0, 0);
 
 
 

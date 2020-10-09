@@ -169,15 +169,15 @@ namespace HelloWorld
                 else if (input == '2')//Second input
                 {
                     SwitchWeapons(_player);//Player switches weapons
-                    Console.Clear();
                 }
                 else if(input == '3') //Third input
                 {
                     Save();//Player saves game
                 }
+                Console.Clear();
 
             }
-            if(_currentfight == 1)
+            if (_currentfight == 1)
             {
                 if (_player.PlayerDead())//If player is dead
                 {
@@ -236,7 +236,6 @@ namespace HelloWorld
                 else if (input == '2')//Second input
                 {
                     SwitchWeapons(_player);//Player switches weapons
-                    Console.Clear();
                 }
                 else if (input == '3') //Third input
 
@@ -245,7 +244,7 @@ namespace HelloWorld
                 }
 
             }
-            if(_currentfight == 2)
+            if (_currentfight == 2)
             {
 
                 if (_player.PlayerDead())//If player is dead
@@ -394,7 +393,8 @@ namespace HelloWorld
                 Console.WriteLine("Welcome stranger! What can I getcha?");
                 Console.WriteLine("Make sure to leave after purchasing one item. I don't want trouble in my place!");
                 _player.PlayerStats();
-
+                Console.WriteLine();
+                Console.WriteLine("Shop: ");
                 ShowInventory(shopInventory);//Shows shop inventory
 
 
