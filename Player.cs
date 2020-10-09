@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Text;
 using System.IO;
-
+using System.Linq;
 
 namespace HelloWorld
 {
@@ -169,16 +169,24 @@ namespace HelloWorld
 
 
         //Saves player's stats
-        public virtual void Save(StreamWriter writer)
+        public virtual void Save(StreamWriter writer, int currentfight)
         {
             writer.WriteLine(_playerName);
             writer.WriteLine(_playerHealth);
             writer.WriteLine(_playerDamage);
             writer.WriteLine(_playerSpeed);
-            writer.WriteLine(_playerSpeed);
+            writer.WriteLine(_playerMoney);
+
+            foreach(Item item in _inventory)
+            {
+                writer.WriteLine(item.name);
+                writer.WriteLine(item.statIncrease);
+                writer.WriteLine(item.cost);
+            }
+            writer.WriteLine(currentfight);
         }
         //Loads player's stats
-        public virtual bool Load(StreamReader reader)
+        public virtual bool Load(StreamReader reader, ref int currentfight)
         {
             string name = reader.ReadLine();
             float damage = 0;
@@ -193,11 +201,27 @@ namespace HelloWorld
             {
                 return false;
             }
+            if (float.TryParse(reader.ReadLine(), out speed) == false)
+            {
+                return false;
+            }
+            if (int.TryParse(reader.ReadLine(), out money) == false)
+            {
+                return false;
+            }
             _playerName = name;
             _playerDamage = damage;
             _playerHealth = health;
             _playerSpeed = speed;
             _playerMoney = money;
+            for (int i = 0; i < _inventory.Count(); i++)
+            {
+                string itemName = reader.ReadLine();
+                int.TryParse(reader.ReadLine(), out int itemStatIncrease);
+                int.TryParse(reader.ReadLine(), out int itemCost);
+                _inventory[i] = new Item(itemName, itemStatIncrease, itemCost);
+            }
+            int.TryParse(reader.ReadLine(), out currentfight);
             return true;
         }
         //Prize money function
